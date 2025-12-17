@@ -55,31 +55,44 @@ _motd_disk() {
 }
 
 # ============================================================================
+# String Length (excluding ANSI codes)
+# ============================================================================
+
+_motd_strlen() {
+    # Remove ANSI escape codes and count actual visible characters
+    local str="$1"
+    # Remove all ANSI escape sequences
+    str="${str//$'\033'\[*([0-9;])m/}"
+    echo "${#str}"
+}
+
+# ============================================================================
 # Box Drawing - Fixed Width
 # ============================================================================
 
-# Fixed box width
-_M_WIDTH=62
+# Fixed box width (total including borders)
+_M_BOX_WIDTH=62
+_M_CONTENT_WIDTH=$((_M_BOX_WIDTH - 4))  # Account for "│ " and " │"
 
 _motd_line() {
     local char="$1"
-    local i
-    local line=""
-    for ((i=0; i<_M_WIDTH; i++)); do
-        line+="$char"
-    done
-    echo "$line"
+    local width="${2:-$_M_BOX_WIDTH}"
+    printf "%${width}s" | tr ' ' "$char"
 }
 
-_motd_pad() {
-    # Pad a plain string to exact width
-    local str="$1"
-    local width="$2"
-    local len=${#str}
-    if (( len >= width )); then
-        echo "${str:0:$width}"
+_motd_pad_line() {
+    # Pad content to exact width, accounting for ANSI codes
+    local content="$1"
+    local target_width="$2"
+    
+    # Calculate actual visible length
+    local visible_len=$(_motd_strlen "$content")
+    local padding=$((target_width - visible_len))
+    
+    if (( padding > 0 )); then
+        printf "%s%${padding}s" "$content" ""
     else
-        printf "%-${width}s" "$str"
+        echo "$content"
     fi
 }
 
@@ -98,35 +111,38 @@ show_motd() {
     local mem=$(_motd_mem)
     local disk=$(_motd_disk)
 
-    local hline=$(_motd_line '─')
-    local inner=$((_M_WIDTH - 2))
-
+    # Build lines
+    local hline=$(_motd_line '─' $((_M_BOX_WIDTH - 2)))
+    
     echo ""
     
     # Top border
     echo "${_M_GREY}┌${hline}┐${_M_RESET}"
     
-    # Header: hostname + datetime
-    local h_left="✦ ${hostname}"
-    local h_right="${datetime}"
-    local h_pad=$((inner - ${#h_left} - ${#h_right}))
-    local h_spaces=""
-    for ((i=0; i<h_pad; i++)); do h_spaces+=" "; done
-    echo "${_M_GREY}│${_M_RESET} ${_M_BOLD}${_M_BLUE}✦${_M_RESET} ${_M_BOLD}${hostname}${_M_RESET}${h_spaces}${_M_DIM}${datetime}${_M_RESET} ${_M_GREY}│${_M_RESET}"
+    # Header line: "✦ hostname" + spaces + "datetime"
+    local header_content="${_M_BOLD}${_M_BLUE}✦${_M_RESET} ${_M_BOLD}${hostname}${_M_RESET}"
+    local header_right="${_M_DIM}${datetime}${_M_RESET}"
+    
+    # Calculate padding needed
+    local header_left_visible=$(_motd_strlen "✦ ${hostname}")
+    local header_right_visible=$(_motd_strlen "${datetime}")
+    local header_padding=$((_M_CONTENT_WIDTH - header_left_visible - header_right_visible))
+    
+    printf "${_M_GREY}│${_M_RESET} %s%${header_padding}s%s ${_M_GREY}│${_M_RESET}\n" \
+        "$header_content" "" "$header_right"
     
     # Separator
     echo "${_M_GREY}├${hline}┤${_M_RESET}"
     
-    # Stats line - build with exact spacing
-    local s1="▲up:${uptime}"
-    local s2="◆load:${load}"
-    local s3="◇mem:${mem}"
-    local s4="⊡${disk}"
-    local stats_content="${s1}  ${s2}  ${s3}  ${s4}"
-    local stats_pad=$((inner - ${#stats_content} - 1))
-    local stats_spaces=""
-    for ((i=0; i<stats_pad; i++)); do stats_spaces+=" "; done
-    echo "${_M_GREY}│${_M_RESET} ${_M_DIM}▲${_M_RESET}up:${uptime}  ${_M_DIM}◆${_M_RESET}load:${load}  ${_M_DIM}◇${_M_RESET}mem:${mem}  ${_M_DIM}⊡${_M_RESET}${disk}${stats_spaces}${_M_GREY}  │${_M_RESET}"
+    # Stats line: "▲ up:1d 23h  ◆ load:2%  ◇ mem:9.3G/23G  ⊡ 845G free"
+    local stats_content="${_M_DIM}▲${_M_RESET} up:${uptime}  ${_M_DIM}◆${_M_RESET} load:${load}  ${_M_DIM}◇${_M_RESET} mem:${mem}  ${_M_DIM}⊡${_M_RESET} ${disk}"
+    
+    # Calculate visible length and padding
+    local stats_visible=$(_motd_strlen "▲ up:${uptime}  ◆ load:${load}  ◇ mem:${mem}  ⊡ ${disk}")
+    local stats_padding=$((_M_CONTENT_WIDTH - stats_visible))
+    
+    printf "${_M_GREY}│${_M_RESET} %s%${stats_padding}s ${_M_GREY}│${_M_RESET}\n" \
+        "$stats_content" ""
     
     # Bottom border
     echo "${_M_GREY}└${hline}┘${_M_RESET}"

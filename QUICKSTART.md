@@ -6,7 +6,7 @@
 
 ```bash
 # Clone and run interactive setup
-git clone https://github.com/adlee-was-taken/dotfiles.git ~/.dotfiles
+git clone https://github.com/adlee-was-taken/dotfiles_wiz_wiz.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh --wizard
 
@@ -383,7 +383,7 @@ ssh-save myserver user@host.com
 - **Full README**: `~/.dotfiles/README.md`
 - **SSH/Tmux Guide**: `~/.dotfiles/SSH_TMUX_INTEGRATION.md`
 - **Changelog**: `~/.dotfiles/CHANGELOG_v1.2.0.md`
-- **GitHub**: https://github.com/adlee-was-taken/dotfiles
+- **GitHub**: https://github.com/adlee-was-taken/dotfiles_wiz
 
 ---
 

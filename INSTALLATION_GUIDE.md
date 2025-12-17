@@ -18,7 +18,7 @@
 The wizard guides you through every option:
 
 ```bash
-git clone https://github.com/adlee-was-taken/dotfiles.git ~/.dotfiles
+git clone https://github.com/adlee-was-taken/dotfiles_wiz.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh --wizard
 ```
@@ -28,7 +28,7 @@ cd ~/.dotfiles
 Uses defaults, asks for tool installations:
 
 ```bash
-git clone https://github.com/adlee-was-taken/dotfiles.git ~/.dotfiles
+git clone https://github.com/adlee-was-taken/dotfiles_wiz.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```
@@ -38,7 +38,7 @@ cd ~/.dotfiles
 Downloads and runs installer:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/adlee-was-taken/dotfiles/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/adlee-was-taken/dotfiles_wiz/main/install.sh | bash
 ```
 
 ### Method 4: Custom Configuration
@@ -46,7 +46,7 @@ curl -fsSL https://raw.githubusercontent.com/adlee-was-taken/dotfiles/main/insta
 Pre-configure before installing:
 
 ```bash
-git clone https://github.com/adlee-was-taken/dotfiles.git ~/.dotfiles
+git clone https://github.com/adlee-was-taken/dotfiles_wiz.git ~/.dotfiles
 cd ~/.dotfiles
 
 # Edit configuration
@@ -90,7 +90,7 @@ brew install git curl zsh
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/adlee-was-taken/dotfiles.git ~/.dotfiles
+git clone https://github.com/adlee-was-taken/dotfiles_wiz.git ~/.dotfiles
 cd ~/.dotfiles
 ```
 
@@ -616,7 +616,7 @@ cat ~/.dotfiles/dotfiles.conf
 
 #### 4. Check GitHub Issues
 
-Visit: https://github.com/adlee-was-taken/dotfiles/issues
+Visit: https://github.com/adlee-was-taken/dotfiles_wiz/issues
 
 ---
 
@@ -707,8 +707,8 @@ rm -rf ~/.oh-my-zsh
 - **Documentation**: `~/.dotfiles/README.md`
 - **Quick Start**: `~/.dotfiles/QUICKSTART.md`
 - **Health Check**: `dfd`
-- **GitHub Issues**: https://github.com/adlee-was-taken/dotfiles/issues
-- **Discussions**: https://github.com/adlee-was-taken/dotfiles/discussions
+- **GitHub Issues**: https://github.com/adlee-was-taken/dotfiles_wiz/issues
+- **Discussions**: https://github.com/adlee-was-taken/dotfiles_wiz/discussions
 
 ---
 

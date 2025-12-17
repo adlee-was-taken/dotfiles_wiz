@@ -113,7 +113,6 @@ typeset -gA TYPO_CORRECTIONS=(
     [wgte]="wget"
     [weget]="wget"
     [crul]="curl"
-    [crul]="curl"
     [curll]="curl"
     [pytohn]="python"
     [pyhton]="python"
@@ -136,7 +135,6 @@ typeset -gA TYPO_CORRECTIONS=(
     [sudoo]="sudo"
     [sssh]="ssh"
     [shh]="ssh"
-    [sssh]="ssh"
     [scpp]="scp"
     [spcp]="scp"
     [vmi]="vim"
@@ -165,7 +163,6 @@ typeset -gA TYPO_CORRECTIONS=(
     [makee]="make"
     [ccd]="cd"
     [cdd]="cd"
-    [ccd]="cd"
 )
 
 # ============================================================================

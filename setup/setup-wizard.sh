@@ -323,6 +323,61 @@ stage_development_tools() {
     print_success "Development tools configured"
 }
 
+stage_optional_features() {
+    print_section "Optional Features"
+    
+    print_info "Select which optional features to enable."
+    print_info "You can always enable/disable these later in dotfiles.conf"
+    echo
+    
+    print_step "Core Features (always enabled):"
+    echo "  ${GREEN}✓${NC} SSH Manager - Manage SSH connections with tmux integration"
+    echo "  ${GREEN}✓${NC} Tmux Workspaces - Create and manage tmux workspace sessions"
+    echo "  ${GREEN}✓${NC} Python Templates - Quick-start Python projects with templates"
+    echo "  ${GREEN}✓${NC} MOTD - Custom message of the day with system info"
+    echo
+    
+    print_step "Optional Features:"
+    echo
+    
+    # Command Palette
+    print_info "${CYAN}Command Palette${NC} - Fuzzy command launcher (Ctrl+Space)"
+    echo "  • Search aliases, functions, history, git/docker commands"
+    echo "  • Quick actions and bookmarks"
+    echo "  • Requires: fzf"
+    if ask_yes_no "Enable Command Palette?" "y"; then
+        ENABLE_COMMAND_PALETTE="true"
+    else
+        ENABLE_COMMAND_PALETTE="false"
+    fi
+    echo
+    
+    # Password Manager
+    print_info "${CYAN}Password Manager Integration${NC} - Unified CLI for 1Password/LastPass/Bitwarden"
+    echo "  • Commands: pw get, pw otp, pw search, pw copy"
+    echo "  • Auto-detects installed password manager"
+    echo "  • Requires: op, lpass, or bw CLI"
+    if ask_yes_no "Enable Password Manager Integration?" "y"; then
+        ENABLE_PASSWORD_MANAGER="true"
+    else
+        ENABLE_PASSWORD_MANAGER="false"
+    fi
+    echo
+    
+    # Smart Suggest
+    print_info "${CYAN}Smart Suggest${NC} - Intelligent command suggestions and typo correction"
+    echo "  • Auto-correct common typos (gti → git, dokcer → docker)"
+    echo "  • Suggest package installation for missing commands"
+    echo "  • Track frequently used commands and suggest aliases"
+    if ask_yes_no "Enable Smart Suggest?" "y"; then
+        ENABLE_SMART_SUGGEST="true"
+    else
+        ENABLE_SMART_SUGGEST="false"
+    fi
+    
+    print_success "Optional features configured"
+}
+
 stage_password_managers() {
     print_section "Password Manager CLI Tools (Optional)"
     
@@ -689,6 +744,11 @@ TW_DEFAULT_TEMPLATE="$TW_DEFAULT_TEMPLATE"
 ENABLE_ANALYTICS="$ENABLE_ANALYTICS"
 AUTO_COMPILE_ZSH="$AUTO_COMPILE_ZSH"
 
+# Optional features
+ENABLE_COMMAND_PALETTE="$ENABLE_COMMAND_PALETTE"
+ENABLE_PASSWORD_MANAGER="$ENABLE_PASSWORD_MANAGER"
+ENABLE_SMART_SUGGEST="$ENABLE_SMART_SUGGEST"
+
 # Performance
 DEFER_LOAD_FUNCTIONS="true"
 
@@ -796,6 +856,7 @@ main() {
     stage_git_config
     stage_shell_preferences
     stage_development_tools
+    stage_optional_features
     stage_password_managers
     stage_python_config
     stage_ssh_setup

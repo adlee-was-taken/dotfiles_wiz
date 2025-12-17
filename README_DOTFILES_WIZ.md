@@ -40,16 +40,36 @@ exec zsh
 
 ## 📦 What You Get
 
-### Included Features
+### Core Features (Always Enabled)
 
-- **SSH Session Manager** - Save connections, auto-tmux, fuzzy search
-- **Tmux Workspace Manager** - Project layouts, templates, pane sync
-- **Python Project Templates** - Django, Flask, FastAPI, data science, CLI
-- **Command Analytics** - Track usage, find patterns
-- **Secrets Management** - 1Password/LastPass/Bitwarden integration
-- **Custom MOTD** - Beautiful system info display
-- **Smart Aliases** - Curated shortcuts
-- **Auto-Updates** - Keep everything in sync
+- **SSH Session Manager** - Save connections, auto-tmux, fuzzy search (`ssh-save`, `sshf`)
+- **Tmux Workspace Manager** - Project layouts, templates, pane sync (`tw`, `twf`)
+- **Python Project Templates** - Django, Flask, FastAPI, data science, CLI (`py-django`, `py-flask`)
+- **Custom MOTD** - Beautiful system info display on login
+
+### Optional Features (Enable During Setup)
+
+- **Command Palette** 🎨 - Fuzzy command launcher (Ctrl+Space)
+  - Search aliases, functions, history, git/docker commands
+  - Quick actions and bookmarks
+  - Requires: fzf
+  
+- **Password Manager Integration** 🔐 - Unified CLI for password managers
+  - Commands: `pw get`, `pw otp`, `pw search`, `pw copy`
+  - Auto-detects 1Password, LastPass, or Bitwarden
+  - Requires: `op`, `lpass`, or `bw` CLI
+  
+- **Smart Suggest** 💡 - Intelligent command suggestions
+  - Auto-correct typos (`gti` → `git`, `dokcer` → `docker`)
+  - Suggest package installation for missing commands
+  - Track frequent commands and suggest aliases
+
+### Additional Features
+
+- **Command Analytics** - Track usage patterns (`dfstats`)
+- **Secrets Management** - Vault integration
+- **Smart Aliases** - Curated productivity shortcuts
+- **Auto-Updates** - Keep everything in sync (`dfu`)
 
 ### Professional Defaults
 
@@ -116,6 +136,36 @@ py-flask myapi                 # Flask API
 py-data analysis               # Data science
 ```
 
+### Command Palette (Optional Feature)
+```bash
+# Press Ctrl+Space to open fuzzy command launcher
+# Search aliases, functions, git/docker commands, bookmarks
+palette                        # Or use: p
+bookmark projects ~/projects   # Add bookmark
+jump projects                  # Quick jump: j projects
+```
+
+### Password Manager (Optional Feature)
+```bash
+pw list                        # List all passwords
+pw get github                  # Get password
+pw otp github                  # Get 2FA code
+pw copy aws                    # Copy to clipboard
+pwf                            # Fuzzy search with fzf
+```
+
+### Smart Suggest (Optional Feature)
+```bash
+$ gti status                   # Typo correction
+→ Did you mean: git status?
+
+$ dokcer ps                    # Suggests fix
+→ Did you mean: docker?
+
+# After typing "docker-compose up -d" 10 times:
+💡 Tip: Consider adding: alias dcu='docker-compose up -d'
+```
+
 ---
 
 ## 📂 Project Structure
@@ -176,7 +226,12 @@ PY_TEMPLATE_PYTHON="python3.11"
 # SSH settings
 SSH_AUTO_TMUX="true"
 
-# Features
+# Optional features (toggle on/off)
+ENABLE_COMMAND_PALETTE="true"    # Ctrl+Space command launcher
+ENABLE_PASSWORD_MANAGER="true"   # pw command for passwords
+ENABLE_SMART_SUGGEST="true"      # Typo correction
+
+# Other features
 ENABLE_ANALYTICS="true"
 ```
 

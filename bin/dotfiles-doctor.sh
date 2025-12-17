@@ -123,7 +123,7 @@ check_dotfiles_installation() {
     if [[ -d "$DOTFILES_DIR" ]]; then
         check_ok "Dotfiles directory exists" "$DOTFILES_DIR"
     else
-        check_error "Dotfiles directory not found" "Clone repo: git clone https://github.com/adlee-was-taken/dotfiles.git ~/.dotfiles"
+        check_error "Dotfiles directory not found" "Clone repo: git clone https://github.com/adlee-was-taken/dotfiles_wiz.git ~/.dotfiles"
         return 1
     fi
     
