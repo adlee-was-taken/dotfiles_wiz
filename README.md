@@ -1,4 +1,4 @@
-# ADLee's Dotfiles v1.2.0
+# dotfiles_wiz v1.2.0
 
 > A powerful, modular dotfiles setup with SSH management, tmux workspaces, and Python project templates.
 
