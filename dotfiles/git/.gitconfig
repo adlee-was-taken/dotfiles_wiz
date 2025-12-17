@@ -1,0 +1,72 @@
+# ============================================================================
+# Git Configuration Template - Part of dotfiles_wiz
+# ============================================================================
+# This file will be customized during installation
+# Edit these defaults before installing, or customize in dotfiles.conf
+# ============================================================================
+
+[init]
+	defaultBranch = main
+
+[user]
+	# Will be set during installation
+	name = Your Name
+	email = you@example.com
+
+[credential]
+	helper = store
+
+[core]
+	editor = vim
+	autocrlf = input
+	
+[pull]
+	rebase = false
+	
+[push]
+	default = current
+	
+[alias]
+	# Status and info
+	st = status
+	s = status --short
+	
+	# Commit
+	ci = commit
+	cm = commit -m
+	ca = commit --amend
+	can = commit --amend --no-edit
+	
+	# Checkout
+	co = checkout
+	cob = checkout -b
+	
+	# Branch
+	br = branch
+	brd = branch -d
+	brD = branch -D
+	
+	# Log
+	lg = log --oneline --graph --decorate --all
+	lp = log --pretty=format:'%C(yellow)%h%Creset %C(blue)%an%Creset %C(green)%ar%Creset %s'
+	last = log -1 HEAD
+	
+	# Diff
+	df = diff
+	dc = diff --cached
+	
+	# Remote
+	rv = remote -v
+	
+	# Stash
+	sl = stash list
+	sp = stash pop
+	ss = stash save
+	
+	# Quick shortcuts
+	aa = add --all
+	unstage = reset HEAD --
+	undo = reset --soft HEAD^
+	
+	# Clean
+	cleanup = "!git branch --merged | grep  -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d"
